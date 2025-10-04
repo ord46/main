@@ -1,19 +1,29 @@
 import React from 'react'
+import Head from 'next/head'
 
 import { getStaticPage, queries } from '@data'
 
-import Layout from '@components/layout'
-import { Module } from '@components/modules'
+import PrivateEquityLanding from '@components/private-equity-landing'
 
 const Home = ({ data }) => {
-  const { site, page } = data
+  const metaTitle =
+    data?.page?.seo?.metaTitle || 'Helios Partners | Private Equity Reinvented'
+  const metaDesc =
+    data?.page?.seo?.metaDesc ||
+    'Helios Partners is a next-generation private equity firm pairing conviction capital with operator-led value creation.'
 
   return (
-    <Layout site={site} page={page}>
-      {page.modules?.map((module, key) => (
-        <Module key={key} module={module} />
-      ))}
-    </Layout>
+    <>
+      <Head>
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDesc} />
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDesc} />
+        <meta property="og:type" content="website" />
+      </Head>
+
+      <PrivateEquityLanding />
+    </>
   )
 }
 
